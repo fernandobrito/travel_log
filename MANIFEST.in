@@ -1,0 +1,3 @@
+include Pipfile
+recursive-include src/travel_log/website/static *
+recursive-include src/travel_log/website/templates *

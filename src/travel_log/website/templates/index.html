@@ -1,0 +1,50 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Travel Log: {{ trip.title }}</title>
+        <meta name="description" content="Travel log">
+        <meta name="author" content="travel_log">
+
+        <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+        <link rel="stylesheet" href="css/Leaflet.Photo.css?v=1.0">
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+              integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+              crossorigin=""/>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.min.css"
+              integrity="sha512-ENrTWqddXrLJsQS2A86QmvA17PkJ0GVm1bqj5aTgpeMAfDKN2+SIOLpKG8R/6KkimnhTb+VW5qqUHB/r1zaRgg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css"
+              integrity="sha512-fYyZwU1wU0QWB4Yutd/Pvhy5J1oWAwFXun1pt+Bps04WSe4Aq6tyHlT4+MHSJhD8JlLfgLuC4CbCnX5KHSjyCg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+
+    <body>
+        {% include 'trip_summary.html' %}
+
+        <hr />
+
+        {% for trip_day in trip.trip_days %}
+            {% include '_trip_day.html' %}
+        {% endfor %}
+
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+                integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+                crossorigin=""></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/leaflet.markercluster.min.js"
+                integrity="sha512-8/nLM89o+U+gWYH4orGbC8qlD/3A4JGHarcJ+PSkrkJ3r2a9/2GdXZNidl5pcBvZ/AGqUiBLBg3BUBH4sUzXow=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.5.1/gpx.min.js"></script>
+        <script src="js/Leaflet.Photo.js"></script>
+
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

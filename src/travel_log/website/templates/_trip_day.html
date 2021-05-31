@@ -1,0 +1,40 @@
+<h2 id="{{ trip_day.date }}">{{ trip_day.date }}</h2>
+<p>{{ trip_day.summary }}</p>
+
+<div id="map_{{ trip_day.date_iso }}" class="map-trip-day" data-trip-date="{{ trip_day.date_iso }}"></div>
+
+<p><strong>{{ trip.highlights_on_date(trip_day.date) | length }}</strong> highlights.</p>
+<ol>
+    {% for highlight in trip.highlights_on_date(trip_day.date) %}
+    <li>
+        <strong>{{ highlight.name }}</strong>: {{ highlight.summary }}
+    </li>
+    {% endfor %}
+</ol>
+
+<p><strong>{{ trip_day.pictures | length }}</strong> pictures.</p>
+
+{% for picture in trip_day.pictures %}
+<img
+    src="pictures/{{ trip_day.date_iso }}/thumbnail/{{ picture.filename }}"
+    class="picture"
+    data-original-url="pictures/{{ trip_day.date_iso }}/original/{{ picture.filename }}"
+    data-trip-date="{{ trip_day.date_iso }}"
+    data-longitude="{{ picture.coordinates.longitude }}"
+    data-latitude="{{ picture.coordinates.latitude }}"
+/>
+{% endfor %}
+
+<p><strong>{{ trip_day.tracks | length }}</strong> tracks.</p>
+
+{% for track in trip_day.tracks %}
+<div
+    data-gpx-url="tracks/{{ trip_day.date_iso }}/{{ track.filename }}"
+    data-trip-date="{{ trip_day.date_iso }}"
+    class="track"
+>
+    tracks/{{ trip_day.date_iso }}/{{ track.filename }}
+</div>
+{% endfor %}
+
+<hr />

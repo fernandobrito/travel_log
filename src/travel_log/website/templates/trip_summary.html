@@ -1,0 +1,26 @@
+<h1>{{ trip.title }}</h1>
+<p>{{ trip.summary }}</p>
+
+<h3>Trip days:</h3>
+<ol>
+    {% for trip_day in trip.trip_days %}
+    <li>
+        <a href="#{{ trip_day.date }}">{{ trip_day.date }}</a>
+    </li>
+    {% endfor %}
+</ol>
+
+<h3>Highlights</h3>
+<ol>
+    {% for highlight in trip.highlights %}
+    <li>
+        <strong>
+            {{ highlight.name }}
+            (<a href="#{{ highlight.from_date }}">{{ highlight.from_date }}</a>)
+        </strong>: {{ highlight.summary }}
+    </li>
+    {% endfor %}
+</ol>
+
+<h3>Trip map</h3>
+<div id="map_trip" class="map-trip"></div>
