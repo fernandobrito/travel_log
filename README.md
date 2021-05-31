@@ -32,7 +32,7 @@ have the following folder tree:
 
 That should be the input, and the output should be a beautiful website.
 
-![Website preview](https://s1.gifyu.com/images/previewa11cbcf08a95563c.gif)
+![Website preview](https://s1.gifyu.com/images/preview-compressed.gif)
 
 > As you can see, this is not a beautiful website yet 😅. I've focused on the backend
 > so far and built the most simple frontend possible to validate the backend.
