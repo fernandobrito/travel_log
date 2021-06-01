@@ -4,8 +4,8 @@
 
 During my bike tours, hikes and car road trips, I always take pictures, record my tracks and sometimes write a journal
 or keep track of my expenses and other stats. So far I have no proper way of visualizing all 3 data points (images,
-locations and text) naturally, either for my own sake or for sharing it with friends or family that might be interested
-in a particular trip because they will do a similar journey in the future.
+locations and text) naturally, either for my own sake or for sharing it with friends or family members that might be
+interested in a particular trip because they will do a similar journey in the future.
 
 **This project aims to generate a website based on the assets (pictures, track and journal) from a single trip, with
 minimal configuration**. Currently, it's in a very alpha stage while I validate some of the ideas.
