@@ -8,7 +8,7 @@ locations and text) naturally, either for my own sake or for sharing it with fri
 in a particular trip because they will do a similar journey in the future.
 
 **This project aims to generate a website based on the assets (pictures, track and journal) from a single trip, with
-minimal configuration.**. Currently, it's in a very alpha stage while I validate some of the ideas.
+minimal configuration**. Currently, it's in a very alpha stage while I validate some of the ideas.
 
 For the proof-of-concept, the input format will be according to how I already store my assets: one folder per day, with
 pictures from that day and the GPX route. To make it simpler, I will be copying my journal from whatever system I used
@@ -57,7 +57,7 @@ to allow multiple days highlights. Example of highlights: a waterfall, a hike, a
 ## Website generation
 
 I'm more of a backend developer, so for now the frontend has only the minimal features necessary to validate my backend
-and some of my ideas. Currently it is done using Jinja2 + simple HTML pages.
+and some of my ideas. Currently, it is done using Jinja2 + simple HTML pages.
 
 One area for improvement would be to make the backend output `json` files and have the frontend be a modern and
 independent frontend app (using React?).
@@ -97,6 +97,6 @@ I'm looking for contributors, specially UX designers and frontend developers. Pl
 ## Testing
 
 The sample project under `test/sample_project` uses pictures from https://picsum.photos/ (generated
-using https://picsum.photos/1024/576). The tracks are real tracks from one my the author's trips.
+using https://picsum.photos/1024/576). The tracks are real tracks from one my trips.
 
 Fake EXIF coordinates were added to the images using https://www.geoimgr.com/.
