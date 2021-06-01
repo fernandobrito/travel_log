@@ -97,6 +97,6 @@ I'm looking for contributors, specially UX designers and frontend developers. Pl
 ## Testing
 
 The sample project under `test/sample_project` uses pictures from https://picsum.photos/ (generated
-using https://picsum.photos/1024/576). The tracks are real tracks from one my trips.
+using https://picsum.photos/1024/576). The tracks are real tracks from one of my trips.
 
 Fake EXIF coordinates were added to the images using https://www.geoimgr.com/.
