@@ -3,7 +3,7 @@ summary: >
   This is a sample project 🤩.
 
 privacy_zones:
-  - name: Ristafallet
+  - name: Ristafallet waterfall
     lat: 63.3123834
     lng: 13.3511221
-    radius: 5
+    radius: 0.5

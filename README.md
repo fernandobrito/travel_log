@@ -63,6 +63,19 @@ feature with the same name. The purpose is to hide the location of specific plac
 that have EXIF geolocation embedded and lies within a privacy zone will have its EXIF geolocation removed when processed
 to be included in the website. Routes that have any points within a privacy zone will have those points removed.
 
+On a more concrete example, the following privacy zone (taken from our `test/_sample_project`):
+
+```yaml
+privacy_zones:
+  - name: Ristafallet waterfall
+    lat: 63.3123834
+    lng: 13.3511221
+    radius: 0.5
+```
+
+will modify tracks and remove pictures from the map as seen below:
+![Privacy zone example](https://github.com/fernandobrito/[reponame]/blob/main/docs/privacy_zone_example.png?raw=true)
+
 ## Website generation
 
 I'm more of a backend developer, so for now the frontend has only the minimal features necessary to validate my backend
