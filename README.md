@@ -45,18 +45,18 @@ Sample website: https://travel-log-sample-trip.netlify.app/
 
 The name of the project is Travel Log. It generates a website for each individual trip.
 
-A trip (class `Trip`) can have a short title (eg: Summer vacation 2020) and a longer summary, described in
+A **trip** (class `Trip`) can have a short title (eg: Summer vacation 2020) and a longer summary, described in
 the `trip.yaml` file on the input folder root level.
 
-A trip has one or more trip days (class `TripDay`). A trip day can contain pictures, tracks, and a journal. All the
+A trip has one or more **trip days** (class `TripDay`). A trip day can contain pictures, tracks, and a journal. All the
 image files in the folder will be parsed as pictures, and all the `.gpx` files as tracks. The journal is written as
 a `day.yaml`.'
 
-A trip can contain zero or more highlights (class `Highlight`), which have a `name` and optionally a `summary`. Note
+A trip can contain zero or more **highlights** (class `Highlight`), which have a `name` and optionally a `summary`. Note
 that highlights can conveniently be defined on `day.yaml` inside a date folder, but they belong to a trip. This is to
 allow multiple days highlights. Example of highlights: a waterfall, a hike, a special road, a special event.
 
-A trip can contain zero or more privacy zones (class `PrivacyZone`), which have a `name`, `lat`, `lng`, and
+A trip can contain zero or more **privacy zones** (class `PrivacyZone`), which have a `name`, `lat`, `lng`, and
 `radius` (in km). This feature is inspired by
 a [Strava](https://support.strava.com/hc/en-us/articles/115000173384-Privacy-Zones)
 feature with the same name. The purpose is to hide the location of specific places (eg: the house of a friend). Pictures
