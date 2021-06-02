@@ -74,7 +74,7 @@ privacy_zones:
 ```
 
 will modify tracks and remove pictures from the map as seen below:
-![Privacy zone example](https://github.com/fernandobrito/[reponame]/blob/main/docs/privacy_zone_example.png?raw=true)
+![Privacy zone example](https://github.com/fernandobrito/travel_log/blob/main/docs/privacy_zone_example.png?raw=true)
 
 ## Website generation
 
