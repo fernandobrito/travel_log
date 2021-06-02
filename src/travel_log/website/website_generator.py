@@ -4,6 +4,7 @@ import shutil
 from jinja2 import FileSystemLoader, Environment
 
 from travel_log.assets.pictures.picture_resizer import PictureResizer
+from travel_log.models.privacy_zone import PrivacyZone
 from travel_log.models.trip import Trip
 
 CURRENT_FOLDER = os.path.dirname(os.path.realpath(__file__))
@@ -36,15 +37,37 @@ def copy_pictures(folder_path, cache_path, trip: Trip):
     for trip_day in trip.trip_days:
         trip_day_pictures_folder_path = os.path.join(pictures_folder_path, trip_day.date_iso)
         os.makedirs(trip_day_pictures_folder_path)
-        os.makedirs(os.path.join(trip_day_pictures_folder_path, 'original'))
+        os.makedirs(os.path.join(trip_day_pictures_folder_path, 'full'))
         os.makedirs(os.path.join(trip_day_pictures_folder_path, 'thumbnail'))
 
         for picture in trip_day.pictures:
-            shutil.copyfile(picture.path, os.path.join(trip_day_pictures_folder_path, 'original', picture.filename))
+            full_output_path = os.path.join(trip_day_pictures_folder_path, 'full', picture.filename)
+            shutil.copyfile(picture.path, full_output_path)
+            inside_zone = PrivacyZone.apply_many_on_processed_picture(trip.privacy_zones, full_output_path)
+            if inside_zone:
+                picture.ignore_exif_coordinates()
 
-            thumbnail_output_folder = os.path.join(trip_day_pictures_folder_path, 'thumbnail')
-            PictureResizer.generate_thumbnail(picture, thumbnail_output_folder,
+            thumbnail_output_path = os.path.join(trip_day_pictures_folder_path, 'thumbnail', picture.filename)
+            PictureResizer.generate_thumbnail(picture, thumbnail_output_path,
                                               cache_folder=cache_path)
+            inside_zone = PrivacyZone.apply_many_on_processed_picture(trip.privacy_zones, thumbnail_output_path)
+            if inside_zone:
+                picture.ignore_exif_coordinates()
+
+            '''
+            The behavior above with pictures is a bit tricky to follow.
+            
+            We need to do 2 things:
+            1) Remove the EXIF coordinates from the processed files (thumbnail and full)
+            that are moved to the output folder. This is done with the 
+            PrivacyZone.apply_many_on_processed_picture) method.
+            
+            2) The Trip object (or to be more precise, TripDays), has reference to Picture
+            objects that are actually referencing the original pictures (not copied to the output
+            folder). Those Picture objects are the ones used in the templates, and from those we
+            need to "hide" the EXIF coordinates from the object, but we don't want to modify
+            the original files. This is done with the picture.ignore_exif_coordinates().
+            '''
 
 
 def copy_tracks(folder_path, trip: Trip):
@@ -57,7 +80,10 @@ def copy_tracks(folder_path, trip: Trip):
         os.makedirs(trip_day_tracks_folder_path)
 
         for picture in trip_day.tracks:
-            shutil.copyfile(picture.path, os.path.join(trip_day_tracks_folder_path, picture.filename))
+            track_output_path = os.path.join(trip_day_tracks_folder_path, picture.filename)
+            shutil.copyfile(picture.path, track_output_path)
+
+            PrivacyZone.apply_many_on_processed_track(trip.privacy_zones, track_output_path)
 
 
 def generate_website(trip: Trip, folder_path, cache_path):

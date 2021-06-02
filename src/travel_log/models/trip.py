@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from travel_log.models.highlight import Highlight
+from travel_log.models.privacy_zone import PrivacyZone
 from travel_log.models.trip_day import TripDay
 
 
@@ -15,6 +16,7 @@ class Trip:
     title: str
     trip_days: list[TripDay]
     highlights: list[Highlight] = field(default_factory=list)
+    privacy_zones: list[PrivacyZone] = field(default_factory=list)
 
     summary: Optional[str] = None
 
