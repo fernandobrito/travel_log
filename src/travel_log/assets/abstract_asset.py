@@ -13,6 +13,15 @@ T = TypeVar('T', bound='AbstractAsset')
 class _AbstractAsset(abc.ABC):
     path: str
 
+    """
+    Some assets are instantiated on top of original files, and some
+    others on top of processed files (such as thumbnails). Assets might have
+    destructive actions (such as removing EXIF metadata), which are normally
+    performed on processed files. To prevent destructive actions to be
+    performed on original files, they should always check for this attribute.
+    """
+    is_read_only: bool = True
+
 
 class AbstractAsset(_AbstractAsset, abc.ABC):
     """

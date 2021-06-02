@@ -1,9 +1,11 @@
 import operator
 import os
 
+import click
 import yaml
 
 from travel_log.models.highlight import Highlight
+from travel_log.models.privacy_zone import PrivacyZone
 from travel_log.models.trip import Trip
 from travel_log.models.trip_day import TripDay
 from travel_log.website.website_generator import generate_website
@@ -15,6 +17,7 @@ def parse_folder(folder_path: str) -> Trip:
     trip_metadata = parse_trip_metadata(folder_path)
     trip_days: list[TripDay] = []
     highlights: list[Highlight] = []
+    privacy_zones: list[PrivacyZone] = []
 
     for sub_folder in os.listdir(folder_path):
         # we only want folders, not files
@@ -42,8 +45,11 @@ def parse_folder(folder_path: str) -> Trip:
     trip_days = sorted(trip_days, key=operator.attrgetter('date'))
     highlights = sorted(highlights, key=operator.attrgetter('from_date'))
 
+    for privacy_zone in trip_metadata.get('privacy_zones', []):
+        privacy_zones.append(PrivacyZone(**privacy_zone))
+
     trip = Trip(title=trip_metadata['title'], trip_days=trip_days, summary=trip_metadata['summary'],
-                highlights=highlights)
+                highlights=highlights, privacy_zones=privacy_zones)
 
     return trip
 
@@ -53,8 +59,15 @@ def parse_trip_metadata(folder_path):
         return yaml.full_load(file)
 
 
-trip = parse_folder('/Users/brito/personal/travel_log/test/sample_project')
+@click.command()
+@click.option('--input-folder', help='The folder with your trip assets')
+def main(input_folder):
+    trip = parse_folder(input_folder)
 
-output_path = os.path.join(CURRENT_FOLDER, '../../output/website')
-cache_path = os.path.join(CURRENT_FOLDER, '../../output/.cache')
-generate_website(trip, output_path, cache_path)
+    output_path = os.path.join(CURRENT_FOLDER, '../../output/website')
+    cache_path = os.path.join(CURRENT_FOLDER, '../../output/.cache')
+    generate_website(trip, output_path, cache_path)
+
+
+if __name__ == '__main__':
+    main()

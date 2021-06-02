@@ -28,9 +28,9 @@ const addPicturesToMap = (pictures, map) => {
         formattedPictures.push({
             lng: longitude,
             lat: latitude,
-            url: 'http://localhost:8000/' + picture.getAttribute('data-original-url'),
+            url: picture.getAttribute('data-full-url'),
             caption: 'Photo',
-            thumbnail: 'http://localhost:8000/' + picture.getAttribute('src'),
+            thumbnail: picture.getAttribute('src'),
         })
     })
 

@@ -12,6 +12,9 @@ jinja2 = "*"
 pyyaml = "*"
 exif = "*"
 pillow = "*"
+geopy = "*"
+gpxpy = "*"
+click = "*"
 
 [requires]
 python_version = "3.9"

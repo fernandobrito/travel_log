@@ -34,6 +34,8 @@ That should be the input, and the output should be a beautiful website.
 
 ![Website preview](https://s1.gifyu.com/images/preview-compressed.gif)
 
+Sample website: https://travel-log-sample-trip.netlify.app/
+
 > As you can see, this is not a beautiful website yet 😅. I've focused on the backend
 > so far and built the most simple frontend possible to validate the backend.
 > I'm currently looking for frontend/UX volunteers.
@@ -50,9 +52,16 @@ A trip has one or more trip days (class `TripDay`). A trip day can contain pictu
 image files in the folder will be parsed as pictures, and all the `.gpx` files as tracks. The journal is written as
 a `day.yaml`.'
 
-A trip can contain zero or more highlights (class `Highlight`), which must have a `name` and optionally a `summary`.
-Note that highlights can conveniently be defined on `day.yaml` inside a date folder, but they belong to a trip. This is
-to allow multiple days highlights. Example of highlights: a waterfall, a hike, a special road, a special event.
+A trip can contain zero or more highlights (class `Highlight`), which have a `name` and optionally a `summary`. Note
+that highlights can conveniently be defined on `day.yaml` inside a date folder, but they belong to a trip. This is to
+allow multiple days highlights. Example of highlights: a waterfall, a hike, a special road, a special event.
+
+A trip can contain zero or more privacy zones (class `PrivacyZone`), which have a `name`, `lat`, `lng`, and
+`radius` (in km). This feature is inspired by
+a [Strava](https://support.strava.com/hc/en-us/articles/115000173384-Privacy-Zones)
+feature with the same name. The purpose is to hide the location of specific places (eg: the house of a friend). Pictures
+that have EXIF geolocation embedded and lies within a privacy zone will have its EXIF geolocation removed when processed
+to be included in the website. Routes that have any points within a privacy zone will have those points removed.
 
 ## Website generation
 
@@ -68,9 +77,13 @@ independent frontend app (using React?).
 
 ## Commands
 
+* `make test` to run the test suite
+* `make lint` to run the linters
 * `make serve` to serve the website locally using Python's `http.server` module (for development purposes only);
 * `make build` to generate the website (to output/website)
 * `make build-watch` to call the above upon any file change under `src/` (only MacOS for now)
+* `make deploy-netlify-draft` to deploy the output on `output/website` on Netlify (draft)
+* `make deploy-netlify-prod` to deploy the same as above but on production
 
 > Idea: also enable/implement live-reload.
 

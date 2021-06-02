@@ -1,8 +1,9 @@
 # Represents a day. Will hold all assets, metadata, etc
 import datetime
+import operator
 import os.path
 from dataclasses import dataclass, field
-from typing import Optional, Any
+from typing import Optional, Mapping
 
 import yaml
 
@@ -19,9 +20,9 @@ class TripDay:
     date: datetime.date
     pictures: list[Picture] = field(default_factory=list)
     tracks: list[Track] = field(default_factory=list)
+    metadata: Mapping = field(default_factory=dict)
 
     summary: Optional[str] = None
-    metadata: Optional[Any] = None
 
     @classmethod
     def from_folder_path(cls, folder_path) -> 'TripDay':
@@ -29,13 +30,16 @@ class TripDay:
         date = datetime.date.fromisoformat(folder_name)
         trip_day = cls(date)
 
-        trip_day.pictures = Picture.from_folder_path(folder_path)
-        trip_day.tracks = Track.from_folder_path(folder_path)
+        trip_day.pictures = sorted(Picture.from_folder_path(folder_path), key=operator.attrgetter('filename'))
+        trip_day.tracks = sorted(Track.from_folder_path(folder_path), key=operator.attrgetter('filename'))
 
-        with open(os.path.join(folder_path, 'day.yaml')) as file:
-            trip_day.metadata = yaml.full_load(file)
+        try:
+            with open(os.path.join(folder_path, 'day.yaml')) as file:
+                trip_day.metadata = yaml.full_load(file)
 
-        trip_day.summary = trip_day.metadata['summary']
+            trip_day.summary = trip_day.metadata['summary']
+        except FileNotFoundError:
+            pass
 
         print(trip_day)
 

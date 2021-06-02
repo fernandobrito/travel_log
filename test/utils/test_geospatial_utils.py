@@ -1,4 +1,4 @@
-from travel_log.utils.coordinates_utils import convert_degrees_to_decimal
+from travel_log.utils.geospatial_utils import convert_degrees_to_decimal
 
 
 def test_coordinates_conversion():
