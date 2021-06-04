@@ -21,7 +21,7 @@ class PictureResizer:
         For the caching behavior, see the `generate_thumbnail` docs.
 
         """
-        cls._generate_with_cache(picture, output_path, THUMBNAIL_SIZE, cache_folder=cache_folder,
+        cls._generate_with_cache(picture, output_path, FULL_SIZE, cache_folder=cache_folder,
                                  cache_prefix='full')
 
     @classmethod
@@ -44,7 +44,7 @@ class PictureResizer:
         :return: none
         """
 
-        cls._generate_with_cache(picture, output_path, FULL_SIZE, cache_folder=cache_folder,
+        cls._generate_with_cache(picture, output_path, THUMBNAIL_SIZE, cache_folder=cache_folder,
                                  cache_prefix='thumbnail')
 
     @classmethod
@@ -66,7 +66,7 @@ class PictureResizer:
                 except FileExistsError:
                     pass
 
-                cls._generate_resized(picture, size, cached_full_path)
+                cls._generate_resized(picture, cached_full_path, size)
                 print(f'[Picture] Cache for {picture.filename} generated')
 
                 shutil.copyfile(cached_full_path, output_path)
@@ -75,7 +75,7 @@ class PictureResizer:
         cls._generate_resized(picture, size, output_path)
 
     @staticmethod
-    def _generate_resized(picture: Picture, full_output_path: str, size: str) -> None:
+    def _generate_resized(picture: Picture, full_output_path: str, size: tuple[int, int]) -> None:
         """
         Internal method used to actually generate and save the resized image.
         Extracted to an internal method to allow for reuse within the cache logic.
@@ -83,6 +83,10 @@ class PictureResizer:
         :param full_output_path: path with filename
         :return: None
         """
+
+        # If you are not explicit with EXIF, pillow will not preserve it
+        # https://stackoverflow.com/a/17047039/3950305
         image = Image.open(picture.path)
         image.thumbnail(size)
-        image.save(full_output_path, optimize=True)
+        exif = image.info['exif']
+        image.save(full_output_path, optimize=True, exif=exif)
