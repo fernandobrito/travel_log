@@ -42,7 +42,8 @@ def copy_pictures(folder_path, cache_path, trip: Trip):
 
         for picture in trip_day.pictures:
             full_output_path = os.path.join(trip_day_pictures_folder_path, 'full', picture.filename)
-            shutil.copyfile(picture.path, full_output_path)
+            PictureResizer.generate_full_size(picture, full_output_path,
+                                              cache_folder=cache_path)
             inside_zone = PrivacyZone.apply_many_on_processed_picture(trip.privacy_zones, full_output_path)
             if inside_zone:
                 picture.ignore_exif_coordinates()
