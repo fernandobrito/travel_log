@@ -1,3 +1,11 @@
+/*
+    From: https://github.com/turban/Leaflet.Photo
+
+    Modified in this project to:
+        1) Fix images that were not loading if they had spaces in the name (by wrapping the URL in
+           the background-image icon style)
+ */
+
 L.Photo = L.FeatureGroup.extend({
     options: {
         icon: {
@@ -26,7 +34,7 @@ L.Photo = L.FeatureGroup.extend({
     createMarker: function (photo) {
         var marker = L.marker(photo, {
             icon: L.divIcon(L.extend({
-                html: '<div style="background-image: url(' + photo.thumbnail + ');"></div>​',
+                html: `<div style="background-image: url('${photo.thumbnail}');"></div>​`,
                 className: 'leaflet-marker-photo',
             }, photo, this.options.icon)),
             title: photo.caption || '',
@@ -49,7 +57,7 @@ if (L.MarkerClusterGroup) {
             iconCreateFunction: function (cluster) {
                 return new L.DivIcon(L.extend({
                     className: 'leaflet-marker-photo',
-                    html: '<div style="background-image: url(' + cluster.getAllChildMarkers()[0].photo.thumbnail + ');"></div>​<b>' + cluster.getChildCount() + '</b>',
+                    html: `<div style="background-image: url('${cluster.getAllChildMarkers()[0].photo.thumbnail}');"></div>​<b>` + cluster.getChildCount() + '</b>',
                 }, this.icon))
             },
             icon: {

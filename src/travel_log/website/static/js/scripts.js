@@ -11,11 +11,18 @@ const loadMap = id => {
 const addPicturesToMap = (pictures, map) => {
     let formattedPictures = []
 
-    let photoLayer = L.photo({ spiderfyDistanceMultiplier: 1.2 }).on('click', function (evt) {
-        evt.layer.bindPopup(L.Util.template('<img src="{url}"/></a><p>{caption} {lat} {lng}</p>', evt.layer.photo), {
-            className: 'leaflet-popup-photo',
-            minWidth: 500,
-        }).openPopup()
+    let photoLayer = L.photo.cluster({
+        spiderfyDistanceMultiplier: 1.2,
+        icon: { iconSize: [60, 60] },
+    }).on('click', evt => {
+        // Pop-up, from Leaflet.Photo example
+        // evt.layer.bindPopup(L.Util.template('<img src="{url}"/></a><p>{caption} {lat} {lng}</p>', evt.layer.photo), {
+        //     className: 'leaflet-popup-photo',
+        //     minWidth: 500,
+        // }).openPopup()
+
+        // Our own integration with lightbox
+        evt.layer.photo.openOnLightbox()
     })
 
     pictures.forEach(picture => {
@@ -28,13 +35,13 @@ const addPicturesToMap = (pictures, map) => {
         formattedPictures.push({
             lng: longitude,
             lat: latitude,
-            url: picture.getAttribute('data-full-url'),
             caption: 'Photo',
             thumbnail: picture.getAttribute('src'),
+            openOnLightbox: () => picture.click(),
         })
     })
 
-    photoLayer.addLayers(formattedPictures).addTo(map)
+    photoLayer.add(formattedPictures).addTo(map)
 }
 
 const addTracksToMapTripDay = (tracks, map) => {
