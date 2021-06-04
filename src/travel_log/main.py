@@ -61,10 +61,11 @@ def parse_trip_metadata(folder_path):
 
 @click.command()
 @click.option('--input-folder', help='The folder with your trip assets')
-def main(input_folder):
+@click.option('--output-folder', default='output/website_real/', help='The folder where the website will be generated')
+def main(input_folder, output_folder):
     trip = parse_folder(input_folder)
 
-    output_path = os.path.join(CURRENT_FOLDER, '../../output/website')
+    output_path = os.path.join(CURRENT_FOLDER, output_folder)
     cache_path = os.path.join(CURRENT_FOLDER, '../../output/.cache')
     generate_website(trip, output_path, cache_path)
 

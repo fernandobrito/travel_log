@@ -13,17 +13,20 @@
 </ol>
 
 <p><strong>{{ trip_day.pictures | length }}</strong> pictures.</p>
-
-{% for picture in trip_day.pictures %}
-<img
-    src="pictures/{{ trip_day.date_iso }}/thumbnail/{{ picture.filename }}"
-    class="picture"
-    data-full-url="pictures/{{ trip_day.date_iso }}/full/{{ picture.filename }}"
-    data-trip-date="{{ trip_day.date_iso }}"
-    data-longitude="{{ picture.coordinates.longitude }}"
-    data-latitude="{{ picture.coordinates.latitude }}"
-/>
-{% endfor %}
+<section data-featherlight-gallery data-featherlight-filter="a">
+    {% for picture in trip_day.pictures %}
+    <a href="pictures/{{ trip_day.date_iso }}/full/{{ picture.filename }}">
+        <img
+            src="pictures/{{ trip_day.date_iso }}/thumbnail/{{ picture.filename }}"
+            class="picture"
+            data-full-url="pictures/{{ trip_day.date_iso }}/full/{{ picture.filename }}"
+            data-trip-date="{{ trip_day.date_iso }}"
+            data-longitude="{{ picture.coordinates.longitude }}"
+            data-latitude="{{ picture.coordinates.latitude }}"
+        />
+    </a>
+    {% endfor %}
+</section>
 
 <p><strong>{{ trip_day.tracks | length }}</strong> tracks.</p>
 

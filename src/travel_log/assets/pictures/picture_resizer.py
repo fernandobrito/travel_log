@@ -8,13 +8,26 @@ from PIL import Image
 from travel_log.assets.pictures.picture import Picture
 
 THUMBNAIL_SIZE = (150, 150)
+FULL_SIZE = (1600, 1600)
 
 
 class PictureResizer:
     @classmethod
+    def generate_full_size(cls, picture: Picture, output_path: str, *, cache_folder: str = None) -> None:
+        """
+        Generates a thumbnail and saves it with the same original filename on the
+        given output_folder.
+
+        For the caching behavior, see the `generate_thumbnail` docs.
+
+        """
+        cls._generate_with_cache(picture, output_path, THUMBNAIL_SIZE, cache_folder=cache_folder,
+                                 cache_prefix='full')
+
+    @classmethod
     def generate_thumbnail(cls, picture: Picture, output_path: str, *, cache_folder: str = None) -> None:
         """
-        Generates a thumbnail and save it with the same original filename on the
+        Generates a thumbnail and saves it with the same original filename on the
         given output_folder.
 
         If a cache folder is provided, it first looks for a cached thumbnail there before
@@ -31,35 +44,45 @@ class PictureResizer:
         :return: none
         """
 
+        cls._generate_with_cache(picture, output_path, FULL_SIZE, cache_folder=cache_folder,
+                                 cache_prefix='thumbnail')
+
+    @classmethod
+    def _generate_with_cache(cls, picture: Picture, output_path: str, size, *,
+                             cache_folder: str = None, cache_prefix: str = None) -> None:
         if cache_folder:
             original_full_path = os.path.join(picture.path, picture.filename)
             hashed_path = md5(original_full_path.encode())
 
-            cached_full_path = os.path.join(cache_folder, hashed_path.hexdigest(), picture.filename)
+            cached_full_path = os.path.join(cache_folder, hashed_path.hexdigest(), cache_prefix or '', picture.filename)
 
             try:
                 shutil.copyfile(cached_full_path, output_path)
                 print(f'[Picture] Cache for {picture.filename} used')
                 return
             except FileNotFoundError:
-                os.makedirs(Path(cached_full_path).parent)
+                try:
+                    os.makedirs(Path(cached_full_path).parent)
+                except FileExistsError:
+                    pass
 
-                cls._generate_thumbnail(picture, cached_full_path)
+                cls._generate_resized(picture, size, cached_full_path)
                 print(f'[Picture] Cache for {picture.filename} generated')
 
                 shutil.copyfile(cached_full_path, output_path)
+                return
 
-        cls._generate_thumbnail(picture, output_path)
+        cls._generate_resized(picture, size, output_path)
 
     @staticmethod
-    def _generate_thumbnail(picture: Picture, full_output_path: str) -> None:
+    def _generate_resized(picture: Picture, full_output_path: str, size: str) -> None:
         """
-        Internal method used to actually generate and save the thumbnail.
+        Internal method used to actually generate and save the resized image.
         Extracted to an internal method to allow for reuse within the cache logic.
 
         :param full_output_path: path with filename
         :return: None
         """
         image = Image.open(picture.path)
-        image.thumbnail(THUMBNAIL_SIZE)
-        image.save(full_output_path)
+        image.thumbnail(size)
+        image.save(full_output_path, optimize=True)
