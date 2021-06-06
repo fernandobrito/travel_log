@@ -86,16 +86,23 @@ independent frontend app (using React?).
 
 ## Installation
 
-`pipenv install`
+For now, only instructions to install for development. This project requires Python 3.9+ (mainly due to new type hinting
+syntax).
+
+Once you clone the repository, install the dependencies:
+`$ pipenv install --dev`
+
+Then install the Python module locally, in editable mode:
+`$ pip insatll -e .`
 
 ## Commands
 
-* `make test` to run the test suite
-* `make lint` to run the linters
+* `make test` to run the test suite;
+* `make lint` to run the linters;
+* `make build` to generate the website (to output/website);
+* `make build-watch` to call the above upon any file change under `src/` (only MacOS for now);
 * `make serve` to serve the website locally using Python's `http.server` module (for development purposes only);
-* `make build` to generate the website (to output/website)
-* `make build-watch` to call the above upon any file change under `src/` (only MacOS for now)
-* `make deploy-netlify-draft` to deploy the output on `output/website` on Netlify (draft)
+* `make deploy-netlify-draft` to deploy the output on `output/website` on Netlify (draft);
 * `make deploy-netlify-prod` to deploy the same as above but on production
 
 > Idea: also enable/implement live-reload.
