@@ -32,7 +32,7 @@ have the following folder tree:
 
 That should be the input, and the output should be a beautiful website.
 
-![Website preview](https://s1.gifyu.com/images/preview-compressed.gif)
+![Website preview](https://s6.gifyu.com/images/preview.gif)
 
 Sample website: https://travel-log-sample-trip.netlify.app/
 
