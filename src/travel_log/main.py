@@ -39,8 +39,14 @@ def parse_folder(folder_path: str) -> Trip:
         # check if there are highlights described
         if trip_day.metadata.get('highlights'):
             for highlight in trip_day.metadata['highlights']:
+                if highlight['picture']:
+                    picture = trip_day.find_picture_by_filename(highlight['picture'].split('/')[-1])
+                else:
+                    picture = None
+
                 highlights.append(
-                    Highlight(from_date=trip_day.date, name=highlight['name'], summary=highlight['summary']))
+                    Highlight(from_date=trip_day.date, name=highlight['name'], summary=highlight['summary'],
+                              picture=picture))
 
     trip_days = sorted(trip_days, key=operator.attrgetter('date'))
     highlights = sorted(highlights, key=operator.attrgetter('from_date'))

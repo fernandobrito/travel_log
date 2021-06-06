@@ -48,3 +48,6 @@ class TripDay:
     @property
     def date_iso(self):
         return self.date.isoformat()
+
+    def find_picture_by_filename(self, filename):
+        return next(picture for picture in self.pictures if picture.filename == filename)

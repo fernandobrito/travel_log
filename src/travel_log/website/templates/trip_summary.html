@@ -6,16 +6,28 @@
 </p>
 
 <h3><i class="bi-eye me-2"></i>Highlights</h3>
-<ol>
+<div class="row row-cols-4 g-2 mb-4">
     {% for highlight in trip.highlights %}
-    <li>
-        <strong>
-            {{ highlight.name }}
-            (<a href="#day-{{ highlight.from_date }}">{{ highlight.from_date }}</a>)
-        </strong>: {{ highlight.summary }}
-    </li>
+    <div class="col">
+        <div class="card h-100">
+            <img
+                src="pictures/{{ highlight.from_date }}/thumbnail/{{ highlight.picture.filename }}"
+                class="card-img-top"
+            />
+            <div class="card-body">
+                <h5 class="card-title">{{ highlight.name }}</h5>
+                <p class="card-text">{{ highlight.summary }}</p>
+            </div>
+            <div class="card-footer text-end">
+                <a href="#day-{{ highlight.from_date }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi-calendar3 me-2"></i>
+                    {{ highlight.from_date }}
+                </a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ol>
+</div>
 
 <h3><i class="bi-map me-2"></i>Trip map</h3>
 <div id="map_trip" class="map-trip"></div>

@@ -2,6 +2,8 @@ import datetime
 from dataclasses import dataclass
 from typing import Optional
 
+from travel_log.assets.pictures.picture import Picture
+
 
 @dataclass
 class Highlight:
@@ -14,6 +16,7 @@ class Highlight:
     from_date: datetime.date
 
     summary: Optional[str] = None
+    picture: Optional[Picture] = None
     to_date: Optional[datetime.date] = None
 
     def __post_init__(self):
