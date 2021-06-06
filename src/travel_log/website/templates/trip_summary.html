@@ -1,19 +1,21 @@
 <h1 id="summary">{{ trip.title }}</h1>
 <p>{{ trip.summary if trip.summary }}</p>
 
-<small>This website was automatically generated using <a href="https://github.com/fernandobrito/travel_log/" target="_blank">https://github.com/fernandobrito/travel_log/</a>.</small>
+<p>
+    <small>This website was automatically generated using <a href="https://github.com/fernandobrito/travel_log/" target="_blank">https://github.com/fernandobrito/travel_log/</a>.</small>
+</p>
 
-<h3>Highlights</h3>
+<h3><i class="bi-eye me-2"></i>Highlights</h3>
 <ol>
     {% for highlight in trip.highlights %}
     <li>
         <strong>
             {{ highlight.name }}
-            (<a href="#{{ highlight.from_date }}">{{ highlight.from_date }}</a>)
+            (<a href="#day-{{ highlight.from_date }}">{{ highlight.from_date }}</a>)
         </strong>: {{ highlight.summary }}
     </li>
     {% endfor %}
 </ol>
 
-<h3>Trip map <i class="bi-home"></i></h3>
+<h3><i class="bi-map me-2"></i>Trip map</h3>
 <div id="map_trip" class="map-trip"></div>
