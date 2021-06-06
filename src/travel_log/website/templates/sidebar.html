@@ -1,17 +1,19 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light sticky-top" style="width: 320px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <span class="fs-4">Navigation</span>
+<div class="flex-column flex-shrink-0 p-3 bg-light sticky-top" style="width: 320px;" id="navbar-main">
+    <a href="/" class="align-items-center link-dark text-decoration-none">
+        <i class="bi-globe me-2 fs-3"></i>
+        <span class="fs-2">Trip log</span>
     </a>
     <hr>
-    <div class="nav-item">
-        <a href="#summary" class="nav-link link-dark">
-            <i class="bi-house-door me-1"></i>
-            Summary
-        </a>
-    </div>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+            <a href="#summary" class="nav-link link-dark active">
+                <i class="bi-house-door me-1"></i>
+                Summary
+            </a>
+        </li>
+    </ul>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto" id="navbar-main">
+    <ul class="nav nav-pills flex-column">
         {% for trip_day in trip.trip_days %}
         <li class="nav-item">
             <a href="#day-{{ trip_day.date }}" class="nav-link link-dark">

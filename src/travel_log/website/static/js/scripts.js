@@ -73,9 +73,7 @@ const addTracksToMapTripDay = (tracks, map) => {
         }).on('loaded', function (e) {
             tracksLoadedOnMap.push(e.target)
 
-            if (tracks.length === tracksLoadedOnMap.length) {
-                fitBoundsMultipleTracks(tracksLoadedOnMap, map)
-            }
+            fitBoundsMultipleTracks(tracksLoadedOnMap, map)
         }).addTo(map)
     })
 }
@@ -96,9 +94,7 @@ const addTracksToMapTrip = (tracks, map) => {
         }).on('loaded', function (e) {
             tracksLoadedOnMap.push(e.target)
 
-            if (tracks.length === tracksLoadedOnMap.length) {
-                fitBoundsMultipleTracks(tracksLoadedOnMap, map)
-            }
+            fitBoundsMultipleTracks(tracksLoadedOnMap, map)
 
             // e.target.bindTooltip(track.getAttribute('data-trip-date'), {
             //     permanent: true,
