@@ -48,6 +48,8 @@ const fitBoundsMultipleTracks = (tracksLoaded, map) => {
     let bounds = L.latLngBounds(tracksLoaded[0].getBounds())
 
     tracksLoaded.forEach(trackLoaded => {
+        if (!trackLoaded) return
+
         bounds.extend(trackLoaded.getBounds())
     })
 
@@ -70,10 +72,16 @@ const addTracksToMapTripDay = (tracks, map) => {
                 endIconUrl: 'images/pin-icon-end.png',
                 shadowUrl: 'images/pin-shadow.png',
             },
-        }).on('loaded', function (e) {
+        }).on('loaded', e => {
             tracksLoadedOnMap.push(e.target)
 
-            fitBoundsMultipleTracks(tracksLoadedOnMap, map)
+            if (tracksLoadedOnMap.length === tracks.length)
+                fitBoundsMultipleTracks(tracksLoadedOnMap, map)
+        }).on('error', _ => {
+            tracksLoadedOnMap.push(null)
+
+            if (tracksLoadedOnMap.length === tracks.length)
+                fitBoundsMultipleTracks(tracksLoadedOnMap, map)
         }).addTo(map)
     })
 }
@@ -91,15 +99,21 @@ const addTracksToMapTrip = (tracks, map) => {
                 endIconUrl: undefined,
                 shadowUrl: undefined,
             },
-        }).on('loaded', function (e) {
+        }).on('loaded', e => {
             tracksLoadedOnMap.push(e.target)
 
-            fitBoundsMultipleTracks(tracksLoadedOnMap, map)
+            if (tracksLoadedOnMap.length === tracks.length)
+                fitBoundsMultipleTracks(tracksLoadedOnMap, map)
 
             // e.target.bindTooltip(track.getAttribute('data-trip-date'), {
             //     permanent: true,
             // }).openTooltip()
             e.target.bindTooltip(track.getAttribute('data-trip-date'))
+        }).on('error', _ => {
+            tracksLoadedOnMap.push(null)
+
+            if (tracksLoadedOnMap.length === tracks.length)
+                fitBoundsMultipleTracks(tracksLoadedOnMap, map)
         }).addTo(map)
     })
 }
@@ -118,7 +132,7 @@ maps.forEach(element => {
 
     // Make the popup (used in the pictures) pop up in the center of the map canvas
     // From: https://stackoverflow.com/questions/22538473/leaflet-center-popup-and-marker-to-the-map
-    mapTripDay.on('popupopen', function (e) {
+    mapTripDay.on('popupopen', e => {
         var px = mapTripDay.project(e.target._popup._latlng) // find the pixel location on the map where the popup anchor is
         px.y -= e.target._popup._container.clientHeight / 2 // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
         mapTripDay.panTo(mapTripDay.unproject(px), { animate: true }) // pan to new center
