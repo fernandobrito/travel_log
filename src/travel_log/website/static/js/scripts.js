@@ -44,8 +44,21 @@ const addPicturesToMap = (pictures, map) => {
     photoLayer.add(formattedPictures).addTo(map)
 }
 
+const fitBoundsMultipleTracks = (tracksLoaded, map) => {
+    let bounds = L.latLngBounds(tracksLoaded[0].getBounds())
+
+    tracksLoaded.forEach(trackLoaded => {
+        bounds.extend(trackLoaded.getBounds())
+    })
+
+    map.fitBounds(bounds)
+}
+
 const addTracksToMapTripDay = (tracks, map) => {
-    let bounds = L.latLngBounds()
+    /*
+     Tracks are added asynchronously to the map, which makes calling "fitBounds" a bit trickier.
+     */
+    let tracksLoadedOnMap = []
 
     tracks.forEach(track => {
         let gpx = track.getAttribute('data-gpx-url') // URL to your GPX file or the GPX itself
@@ -58,14 +71,17 @@ const addTracksToMapTripDay = (tracks, map) => {
                 shadowUrl: 'images/pin-shadow.png',
             },
         }).on('loaded', function (e) {
-            bounds.extend(e.target.getBounds())
-            map.fitBounds(bounds)
+            tracksLoadedOnMap.push(e.target)
+
+            if (tracks.length === tracksLoadedOnMap.length) {
+                fitBoundsMultipleTracks(tracksLoadedOnMap, map)
+            }
         }).addTo(map)
     })
 }
 
 const addTracksToMapTrip = (tracks, map) => {
-    let bounds = L.latLngBounds()
+    let tracksLoadedOnMap = []
 
     tracks.forEach(track => {
         let gpx = track.getAttribute('data-gpx-url') // URL to your GPX file or the GPX itself
@@ -78,18 +94,25 @@ const addTracksToMapTrip = (tracks, map) => {
                 shadowUrl: undefined,
             },
         }).on('loaded', function (e) {
-            bounds.extend(e.target.getBounds())
+            tracksLoadedOnMap.push(e.target)
 
-            e.target.bindTooltip(track.getAttribute('data-trip-date'), {
-                permanent: true,
-            }).openTooltip()
-            map.fitBounds(bounds)
+            if (tracks.length === tracksLoadedOnMap.length) {
+                fitBoundsMultipleTracks(tracksLoadedOnMap, map)
+            }
+
+            // e.target.bindTooltip(track.getAttribute('data-trip-date'), {
+            //     permanent: true,
+            // }).openTooltip()
+            e.target.bindTooltip(track.getAttribute('data-trip-date'))
         }).addTo(map)
     })
 }
 
 // The map for the entire trip. All routes should be added to this one
+let allTracks = document.querySelectorAll('.track')
 const mapTrip = loadMap('map_trip')
+addTracksToMapTrip(allTracks, mapTrip)
+
 
 // Maps for each individual TripDay
 let maps = document.querySelectorAll('.map-trip-day')
@@ -108,7 +131,6 @@ maps.forEach(element => {
     let tripDate = element.getAttribute('data-trip-date')
 
     let tracks = document.querySelectorAll((`.track[data-trip-date*="${tripDate}"]`))
-    addTracksToMapTrip(tracks, mapTrip)
     addTracksToMapTripDay(tracks, mapTripDay)
 
     let pictures = document.querySelectorAll((`.picture[data-trip-date*="${tripDate}"]`))
