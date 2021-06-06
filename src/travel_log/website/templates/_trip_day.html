@@ -1,5 +1,5 @@
-<h2 id="{{ trip_day.date }}">{{ trip_day.date }}</h2>
-<p>{{ trip_day.summary }}</p>
+<h2 id="day-{{ trip_day.date }}">{{ trip_day.date }}</h2>
+<p>{{ trip_day.summary if trip_day.summary }}</p>
 
 <div id="map_{{ trip_day.date_iso }}" class="map-trip-day" data-trip-date="{{ trip_day.date_iso }}"></div>
 

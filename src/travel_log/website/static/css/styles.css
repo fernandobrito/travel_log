@@ -7,3 +7,12 @@
     height: 500px;
     width: 700px;
 }
+
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+}

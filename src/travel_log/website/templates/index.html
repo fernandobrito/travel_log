@@ -8,8 +8,6 @@
         <meta name="description" content="Travel log">
         <meta name="author" content="travel_log">
 
-        <link rel="stylesheet" href="css/styles.css?v=1.0">
-
         <link rel="stylesheet" href="css/Leaflet.Photo.css?v=1.0">
 
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -26,16 +24,29 @@
 
         <link href="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css" type="text/css" rel="stylesheet" />
         <link href="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.gallery.min.css" type="text/css" rel="stylesheet" />
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+        <link rel="stylesheet" href="css/styles.css?v=1.0">
     </head>
 
     <body>
-        {% include 'trip_summary.html' %}
+        <main class="container">
+            {% include 'sidebar.html' %}
 
-        <hr />
+            <div class="flex-column col py-3 px-5 container" data-bs-spy="scroll" data-bs-target="#navbar-main" data-bs-offset="0" id="summary">
+                {% include 'trip_summary.html' %}
 
-        {% for trip_day in trip.trip_days %}
-            {% include '_trip_day.html' %}
-        {% endfor %}
+                <hr />
+
+                {% for trip_day in trip.trip_days %}
+                    {% include '_trip_day.html' %}
+                {% endfor %}
+            </div>
+        </main>
 
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
                 integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -52,6 +63,10 @@
         <script src="//code.jquery.com/jquery-latest.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
 
         <script src="js/scripts.js"></script>
     </body>

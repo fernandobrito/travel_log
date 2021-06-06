@@ -1,0 +1,25 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light sticky-top" style="width: 320px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4">Navigation</span>
+    </a>
+    <hr>
+    <div class="nav-item">
+        <a href="#summary" class="nav-link link-dark">
+            <i class="bi-house-door me-1"></i>
+            Summary
+        </a>
+    </div>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto" id="navbar-main">
+        {% for trip_day in trip.trip_days %}
+        <li class="nav-item">
+            <a href="#day-{{ trip_day.date }}" class="nav-link link-dark">
+                <i class="bi-calendar3 me-1"></i>
+                {{ trip_day.date }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
+</div>
