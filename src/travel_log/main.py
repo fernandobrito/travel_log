@@ -39,7 +39,7 @@ def parse_folder(folder_path: str) -> Trip:
         # check if there are highlights described
         if trip_day.metadata.get('highlights'):
             for highlight in trip_day.metadata['highlights']:
-                if highlight['picture']:
+                if highlight.get('picture'):
                     picture = trip_day.find_picture_by_filename(highlight['picture'].split('/')[-1])
                 else:
                     picture = None
