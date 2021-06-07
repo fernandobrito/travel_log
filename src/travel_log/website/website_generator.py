@@ -1,7 +1,8 @@
 import os
 import shutil
 
-from jinja2 import FileSystemLoader, Environment
+import markdown
+from jinja2 import FileSystemLoader, Environment, Markup
 
 from travel_log.assets.pictures.picture_resizer import PictureResizer
 from travel_log.models.privacy_zone import PrivacyZone
@@ -15,6 +16,7 @@ def render_pages_to_files(folder_path, trip: Trip):
 
     file_loader = FileSystemLoader(os.path.join(CURRENT_FOLDER, 'templates'))
     env = Environment(loader=file_loader)
+    env.filters['markdown'] = lambda text: Markup(markdown.markdown(text))
 
     template = env.get_template(template_file_name)
     rendered = template.render(trip=trip)
