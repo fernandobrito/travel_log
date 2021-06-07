@@ -37,7 +37,7 @@ class TripDay:
             with open(os.path.join(folder_path, 'day.yaml')) as file:
                 trip_day.metadata = yaml.full_load(file)
 
-            trip_day.summary = trip_day.metadata['summary']
+            trip_day.summary = trip_day.metadata.get('summary')
         except FileNotFoundError:
             pass
 
