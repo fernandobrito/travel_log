@@ -1,11 +1,13 @@
 .map-trip {
-    height: 500px;
-    width: 700px;
+    width: 80%;
+    height: calc(80vw * 0.5);
+    max-height: 600px;
 }
 
 .map-trip-day {
-    height: 500px;
-    width: 700px;
+    width: 80%;
+    height: calc(80vw * 0.5);
+    max-height: 600px;
 }
 
 #content {

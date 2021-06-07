@@ -6,7 +6,7 @@
 </p>
 
 <h3><i class="bi-eye me-2"></i>Highlights</h3>
-<div class="row row-cols-4 g-2 mb-4">
+<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 g-2 mb-4">
     {% for highlight in trip.highlights %}
     <div class="col">
         <div class="card h-100">
@@ -16,7 +16,7 @@
             />
             <div class="card-body">
                 <h5 class="card-title">{{ highlight.name }}</h5>
-                <p class="card-text">{{ highlight.summary }}</p>
+                <p class="card-text">{{ highlight.summary | markdown }}</p>
             </div>
             <div class="card-footer text-end">
                 <a href="#day-{{ highlight.from_date }}" class="btn btn-outline-secondary btn-sm">

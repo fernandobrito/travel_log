@@ -8,6 +8,8 @@
         <meta name="description" content="Travel log">
         <meta name="author" content="travel_log">
 
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
         <link rel="stylesheet" href="css/Leaflet.Photo.css?v=1.0">
 
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -34,10 +36,10 @@
     </head>
 
     <body>
-        <main class="d-flex container-fluid">
+        <main class="d-flex container-xxl">
             {% include 'sidebar.html' %}
 
-            <div class="flex-column col py-3 px-5 container" data-bs-spy="scroll" data-bs-target="#navbar-main" data-bs-offset="0" id="content">
+            <div class="flex-column py-3 px-sm-2 px-lg-4" data-bs-spy="scroll" data-bs-target="#navbar-main" data-bs-offset="0" id="content">
                 {% include 'trip_summary.html' %}
 
                 <hr />
