@@ -50,7 +50,7 @@ the `trip.yaml` file on the input folder root level.
 
 A trip has one or more **trip days** (class `TripDay`). A trip day can contain pictures, tracks, and a journal. All the
 image files in the folder will be parsed as pictures, and all the `.gpx` files as tracks. The journal is written as
-a `day.yaml`.'
+a `day.yaml`.
 
 A trip can contain zero or more **highlights** (class `Highlight`), which have a `name` and optionally a `summary`. Note
 that highlights can conveniently be defined on `day.yaml` inside a date folder, but they belong to a trip. This is to
