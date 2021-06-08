@@ -52,9 +52,10 @@ A trip has one or more **trip days** (class `TripDay`). A trip day can contain p
 image files in the folder will be parsed as pictures, and all the `.gpx` files as tracks. The journal is written as
 a `day.yaml`.
 
-A trip can contain zero or more **highlights** (class `Highlight`), which have a `name` and optionally a `summary`. Note
-that highlights can conveniently be defined on `day.yaml` inside a date folder, but they belong to a trip. This is to
-allow multiple days highlights. Example of highlights: a waterfall, a hike, a special road, a special event.
+A trip can contain zero or more **highlights** (class `Highlight`), which have a `name` and optionally a `summary` and
+a `picture`. Note that highlights can conveniently be defined on `day.yaml` inside a date folder, but in the code they
+actually belong to a trip, so multiple days highlights can be easily supported. Example of highlights: a waterfall, a
+hike, a special road, a special event.
 
 A trip can contain zero or more **privacy zones** (class `PrivacyZone`), which have a `name`, `lat`, `lng`, and
 `radius` (in km). This feature is inspired by
