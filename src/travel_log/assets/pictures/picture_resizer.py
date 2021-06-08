@@ -66,7 +66,7 @@ class PictureResizer:
                 except FileExistsError:
                     pass
 
-                cls._generate_resized(picture, cached_full_path, size)
+                cls._generate_resized(picture, size, cached_full_path)
                 print(f'[Picture] Cache for {picture.filename} generated')
 
                 shutil.copyfile(cached_full_path, output_path)
@@ -75,7 +75,7 @@ class PictureResizer:
         cls._generate_resized(picture, size, output_path)
 
     @staticmethod
-    def _generate_resized(picture: Picture, full_output_path: str, size: tuple[int, int]) -> None:
+    def _generate_resized(picture: Picture, size: tuple[int, int], full_output_path: str) -> None:
         """
         Internal method used to actually generate and save the resized image.
         Extracted to an internal method to allow for reuse within the cache logic.
