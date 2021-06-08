@@ -87,14 +87,14 @@ independent frontend app (using React?).
 
 ## Installation
 
-For now, only instructions to install for development. This project requires Python 3.9+ (mainly due to new type hinting
-syntax).
+For now, only instructions for developers (and not end users) are provided. This project requires Python 3.9+ (mainly
+due to new type hinting syntax).
 
 Once you clone the repository, install the dependencies:
 `$ pipenv install --dev`
 
 Then install the Python module locally, in editable mode:
-`$ pip insatll -e .`
+`$ pip install -e .`
 
 ## Commands
 
@@ -110,7 +110,7 @@ Then install the Python module locally, in editable mode:
 
 ## Reference
 
-(schema for YAMLs)
+(TODO: schema for YAMLs with all optional fields)
 
 ## Development
 
