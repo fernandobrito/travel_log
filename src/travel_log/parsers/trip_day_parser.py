@@ -16,8 +16,12 @@ class TripDayParser:
         date = datetime.date.fromisoformat(folder_name)
         trip_day = TripDay(date)
 
-        trip_day.pictures = sorted(Picture.from_folder_path(folder_path), key=operator.attrgetter('filename'))
-        trip_day.tracks = sorted(Track.from_folder_path(folder_path), key=operator.attrgetter('filename'))
+        trip_day.pictures = sorted(
+            Picture.from_folder_path(folder_path), key=operator.attrgetter('filename')
+        )
+        trip_day.tracks = sorted(
+            Track.from_folder_path(folder_path), key=operator.attrgetter('filename')
+        )
 
         try:
             with open(os.path.join(folder_path, 'day.yaml')) as file:

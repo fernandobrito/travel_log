@@ -40,13 +40,20 @@ class TripParser:
             if trip_day.metadata.get('highlights'):
                 for highlight in trip_day.metadata['highlights']:
                     if highlight.get('picture'):
-                        picture = trip_day.find_picture_by_filename(highlight['picture'].split('/')[-1])
+                        picture = trip_day.find_picture_by_filename(
+                            highlight['picture'].split('/')[-1]
+                        )
                     else:
                         picture = None
 
                     highlights.append(
-                        Highlight(from_date=trip_day.date, name=highlight['name'], summary=highlight['summary'],
-                                  picture=picture))
+                        Highlight(
+                            from_date=trip_day.date,
+                            name=highlight['name'],
+                            summary=highlight['summary'],
+                            picture=picture,
+                        )
+                    )
 
         trip_days = sorted(trip_days, key=operator.attrgetter('date'))
         highlights = sorted(highlights, key=operator.attrgetter('from_date'))
@@ -54,8 +61,13 @@ class TripParser:
         for privacy_zone in trip_metadata.get('privacy_zones', []):
             privacy_zones.append(PrivacyZone(**privacy_zone))
 
-        trip = Trip(title=trip_metadata['title'], trip_days=trip_days, summary=trip_metadata['summary'],
-                    highlights=highlights, privacy_zones=privacy_zones)
+        trip = Trip(
+            title=trip_metadata['title'],
+            trip_days=trip_days,
+            summary=trip_metadata['summary'],
+            highlights=highlights,
+            privacy_zones=privacy_zones,
+        )
 
         return trip
 

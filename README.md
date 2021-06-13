@@ -8,7 +8,7 @@ locations and text) naturally, either for my own sake or for sharing it with fri
 interested in a particular trip because they will do a similar journey in the future.
 
 **This project aims to generate a website based on the assets (pictures, track and journal) from a single trip, with
-minimal configuration**. Currently, it's in a very alpha stage while I validate some of the ideas.
+minimal configuration**. Currently, it's in a very alpha stage while I validate some ideas.
 
 For the proof-of-concept, the input format will be according to how I already store my assets: one folder per day, with
 pictures from that day and the GPX route. To make it simpler, I will be copying my journal from whatever system I used

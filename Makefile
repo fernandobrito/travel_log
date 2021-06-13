@@ -5,6 +5,8 @@ test:
 .PHONY: lint
 lint:
 	mypy src/
+	black .
+	flake8
 
 .PHONY: serve
 serve:

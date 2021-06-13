@@ -1,7 +1,6 @@
 from dataclasses import dataclass, field
 
 import gpxpy.gpx
-
 from travel_log.assets.abstract_asset import AbstractAsset
 
 TRACKS_ALLOWED_EXTENSIONS = ['gpx']
@@ -10,7 +9,8 @@ TRACKS_ALLOWED_EXTENSIONS = ['gpx']
 @dataclass
 class Track(AbstractAsset):
     """
-    A GPS track. More methods will be added to retrieve stats (such as time moving, distance travelled, etc)
+    A GPS track. More methods will be added to retrieve stats (such as time moving, distance
+    travelled, etc)
     """
 
     """

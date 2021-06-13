@@ -13,7 +13,9 @@ FULL_SIZE = (1600, 1600)
 
 class PictureResizer:
     @classmethod
-    def generate_full_size(cls, picture: Picture, output_path: str, *, cache_folder: str = None) -> None:
+    def generate_full_size(
+        cls, picture: Picture, output_path: str, *, cache_folder: str = None
+    ) -> None:
         """
         Generates a thumbnail and saves it with the same original filename on the
         given output_folder.
@@ -21,11 +23,14 @@ class PictureResizer:
         For the caching behavior, see the `generate_thumbnail` docs.
 
         """
-        cls._generate_with_cache(picture, output_path, FULL_SIZE, cache_folder=cache_folder,
-                                 cache_prefix='full')
+        cls._generate_with_cache(
+            picture, output_path, FULL_SIZE, cache_folder=cache_folder, cache_prefix='full'
+        )
 
     @classmethod
-    def generate_thumbnail(cls, picture: Picture, output_path: str, *, cache_folder: str = None) -> None:
+    def generate_thumbnail(
+        cls, picture: Picture, output_path: str, *, cache_folder: str = None
+    ) -> None:
         """
         Generates a thumbnail and saves it with the same original filename on the
         given output_folder.
@@ -44,17 +49,31 @@ class PictureResizer:
         :return: none
         """
 
-        cls._generate_with_cache(picture, output_path, THUMBNAIL_SIZE, cache_folder=cache_folder,
-                                 cache_prefix='thumbnail')
+        cls._generate_with_cache(
+            picture,
+            output_path,
+            THUMBNAIL_SIZE,
+            cache_folder=cache_folder,
+            cache_prefix='thumbnail',
+        )
 
     @classmethod
-    def _generate_with_cache(cls, picture: Picture, output_path: str, size, *,
-                             cache_folder: str = None, cache_prefix: str = None) -> None:
+    def _generate_with_cache(
+        cls,
+        picture: Picture,
+        output_path: str,
+        size,
+        *,
+        cache_folder: str = None,
+        cache_prefix: str = None,
+    ) -> None:
         if cache_folder:
             original_full_path = os.path.join(picture.path, picture.filename)
             hashed_path = md5(original_full_path.encode())
 
-            cached_full_path = os.path.join(cache_folder, hashed_path.hexdigest(), cache_prefix or '', picture.filename)
+            cached_full_path = os.path.join(
+                cache_folder, hashed_path.hexdigest(), cache_prefix or '', picture.filename
+            )
 
             try:
                 shutil.copyfile(cached_full_path, output_path)

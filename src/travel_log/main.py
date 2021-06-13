@@ -10,8 +10,11 @@ CURRENT_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
 @click.command()
 @click.option('--input-folder', help='The folder with your trip assets')
-@click.option('--output-folder', default='../../output/website/',
-              help='The folder where the website will be generated')
+@click.option(
+    '--output-folder',
+    default='../../output/website/',
+    help='The folder where the website will be generated',
+)
 def main(input_folder, output_folder):
     trip = TripParser.parse_folder(input_folder)
 

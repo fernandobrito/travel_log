@@ -10,9 +10,10 @@ from travel_log.assets.tracks.track import Track
 @dataclass
 class TripDay:
     """
-    A day in a trip. Can have assets, modeled metadata (such as summary) and flexible metadata defined
-    by the user.
+    A day in a trip. Can have assets, modeled metadata (such as summary) and flexible metadata
+    defined by the user.
     """
+
     date: datetime.date
     pictures: list[Picture] = field(default_factory=list)
     tracks: list[Track] = field(default_factory=list)

@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from typing import Iterable
 
 import geopy.distance
-
 from travel_log.assets.pictures.picture import Picture
 from travel_log.assets.tracks.track import Track
 from travel_log.models.coordinates import Coordinates
@@ -17,6 +16,7 @@ class PrivacyZone:
     It is used to process pictures EXIF geolocation and tracks with the intent of not
     disclosing the exact location of a place (eg: your home's location).
     """
+
     name: str
     lat: float
     lng: float
@@ -29,7 +29,7 @@ class PrivacyZone:
     def _is_point_inside(self, point: Coordinates) -> bool:
         distance = geopy.distance.geodesic(
             [point.latitude, point.longitude],
-            [self.coordinates.latitude, self.coordinates.longitude]
+            [self.coordinates.latitude, self.coordinates.longitude],
         ).kilometers
 
         return distance <= self.radius
@@ -78,7 +78,9 @@ class PrivacyZone:
         for track in track_data.tracks:
             for segment in track.segments:
                 for point in copy(segment.points):
-                    point_coordinates = Coordinates(latitude=point.latitude, longitude=point.longitude)
+                    point_coordinates = Coordinates(
+                        latitude=point.latitude, longitude=point.longitude
+                    )
 
                     if self._is_point_inside(point_coordinates):
                         segment.points.remove(point)
@@ -86,7 +88,9 @@ class PrivacyZone:
 
         if points_removed > 0:
             print(
-                f'Track {input_track.filename} had points {points_removed} removed from inside "{self.name}" privacy zone')
+                f'Track {input_track.filename} had points {points_removed} removed from '
+                f'inside "{self.name}" privacy zone'
+            )
 
             input_track.data = track_data
 

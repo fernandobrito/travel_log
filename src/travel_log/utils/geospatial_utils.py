@@ -2,8 +2,9 @@ def convert_degrees_to_decimal(dms: tuple[float, float, float], reference: str) 
     """
     Convert coordinates from (degrees, minutes, seconds) to a decimal representation.
     EXIF stores coordinates in the former format.
-    
-    Adapted from https://developer.here.com/blog/getting-started-with-geocoding-exif-image-metadata-in-python3
+
+    Adapted from
+    https://developer.here.com/blog/getting-started-with-geocoding-exif-image-metadata-in-python3
 
     :param dms: tuple with (degrees, minutes, seconds)
     :param reference: str with N, S, W or E

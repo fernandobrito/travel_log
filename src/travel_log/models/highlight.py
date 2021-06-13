@@ -8,9 +8,10 @@ from travel_log.assets.pictures.picture import Picture
 @dataclass
 class Highlight:
     """
-    A highlight, created to mark events such as a special place visited. Can also model multiple day events,
-    such as a 3 days hike in a longer trip.
+    A highlight, created to mark events such as a special place visited. Can also model multiple
+    day events, such as a 3 days hike in a longer trip.
     """
+
     name: str
 
     from_date: datetime.date

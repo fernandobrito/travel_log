@@ -10,9 +10,10 @@ from travel_log.models.trip_day import TripDay
 @dataclass
 class Trip:
     """
-    A trip is the main entity represented on each execution of this entire project. It serves as a parent object
-    to all assets (mostly through TripDay) and other models.
+    A trip is the main entity represented on each execution of this entire project. It serves as a
+    parent object to all assets (mostly through TripDay) and other models.
     """
+
     title: str
     trip_days: list[TripDay]
     highlights: list[Highlight] = field(default_factory=list)
